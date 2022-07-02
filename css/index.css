@@ -1,0 +1,74 @@
+html {
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+.container {
+    position: absolute;
+    top: 10vh;
+    width: 100%;
+}
+.content {
+    width: 200px;
+    height: 150px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 5px #bbb;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 150px;
+    font-weight: bold;
+    font-size: 30px;
+}
+.btn-group {
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.btn {
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+}
+.btn-start {
+    background-color: #67c23a;
+}
+.btn-start:hover {
+    background-color: #95d475;
+}
+.btn-stop {
+    background-color: #f56c6c;
+}
+.btn-stop:hover {
+    background-color: #f89898;
+}
+
+.prize {
+    width: 800px;
+    height: 260px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #bbb;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 auto;
+    overflow: auto;
+} 
+.prize h3 {
+    margin-top: 0;
+}
+
+.person-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
