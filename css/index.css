@@ -1,15 +1,12 @@
-html {
-    background-image: url('../images/bg.jpg');
-    background-size: cover;
-}
 body {
     margin: 0;
     padding: 0;
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
 }
 .container {
-    position: absolute;
-    top: 10vh;
     width: 100%;
+    margin: 10vh 0;
 }
 .content {
     width: 200px;
@@ -54,7 +51,8 @@ body {
 }
 
 .prize {
-    width: 800px;
+    max-width: 800px;
+    width: 80%;
     height: 260px;
     background-color: #fff;
     box-shadow: 0 0 5px #bbb;
