@@ -10,7 +10,11 @@
 > 
 > 已经中过奖的⼈不能再次抽奖
 
-## 六、文件资源目录 📚
+## 在线预览 👀
+
+- Link：https://yijunsong-budidiao.github.io/lottery-system/
+
+## 文件资源目录 📚
 
 ```text
 lottery-system
