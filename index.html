@@ -18,24 +18,27 @@
         var url = document.getElementById('url');
 
         btn.onclick = function () {
-            fetch(url.value, {}).then((res) => {
+            fetch(url.value, {
+                method: 'GET',
+                mode: 'no-cors',
+            }).then((res) => {
                 return res.text()
             }).then((res) => {
-                // console.log(res)
+                console.log(res)
                 // console.log(res.match(/<meta.*?>/gi));
                 var arr1 = res.match(/<meta.*?>/gi)
                 var arr2 = res.match(/<title.*?title>/gi)
-                var doms1 = arr1.map(item=>{
+                var doms1 = arr1.map(item => {
                     var dom = document.createElement('div')
                     dom.innerHTML = item
                     return dom.getElementsByTagName('meta')[0]
                 })
-                var doms2 = arr2.map(item=>{
+                var doms2 = arr2.map(item => {
                     var dom = document.createElement('div')
                     dom.innerHTML = item
                     return dom.getElementsByTagName('title')[0]
                 })
-                doms1.forEach(item=>{
+                doms1.forEach(item => {
                     if (item.name == 'keywords') {
                         console.log('关键字::', item.content)
                     }
@@ -43,11 +46,11 @@
                         console.log('描述::', item.content)
                     }
                 })
-                doms2.forEach(item=>{
+                doms2.forEach(item => {
                     console.log('标题::', item.innerText)
                 })
-                
-            }).catch((e)=>{
+
+            }).catch((e) => {
                 console.log(e)
             })
         }
