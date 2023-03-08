@@ -1,108 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>抽奖系统</title>
-    <!-- vue核心库 -->
-    <script src="./libs/vue.min.js"></script>
-    <!-- 数据 -->
-    <script src="./libs/data.js"></script>
-    <!-- 样式 -->
-    <link rel="stylesheet" href="./css/index.css" />
-  </head>
-  <body>
-    <div id="app">
-      <div class="container">
-        <div class="content">{{showPersonName}}</div>
-        <div class="btn-group">
-          <div v-show="btnVisible" class="btn btn-start" @click="start()">
-            开始
-          </div>
-          <div v-show="!btnVisible" class="btn btn-stop" @click="stop()">
-            停止
-          </div>
-        </div>
-        <div class="prize">
-          <h3 class="title">已中奖人员名单：</h3>
-          <div class="person-list">
-            <div class="person" v-for="item in prizePersonList" :key="item.id">
-              {{item.id}}-{{item.name}}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <input type="text" id="url">
+    <button id="btn">点击获取</button>
     <script>
-      let vm = new Vue({
-        el: "#app",
-        data: {
-          // 抽奖板当前显示人员
-          showPersonName: defaultPersonList[0].name,
-          // 当前选中人员数组下标
-          index: 0,
-          // 剩余190人
-          defaultPersonList: defaultPersonList,
-          // 幸运10人
-          luckyPersonList: luckyPersonList,
-          // 当前抽奖次数
-          num: 0,
-          // 已经中奖人员名单
-          prizePersonList: [],
-          // 定时器
-          timer: null,
-          // 开始/停止按钮 显示/隐藏
-          btnVisible: true,
-        },
-        methods: {
-          start() {
-            // 超过200次，再次点击开始，提示已结束
-            if (this.num >= 200) {
-              return alert("本次抽奖已结束！");
-            }
-            this.btnVisible = false;
-            clearInterval(this.timer);
-            this.timer = setInterval(() => {
-              /**
-               * 获取当前还未中奖的总人员list
-               * 随机产生一个当前数组下标，显示在dom结构中，并记录下标index
-               */
-              const allPersonList = this.defaultPersonList.concat(
-                this.luckyPersonList
-              );
-              const random = Math.floor(Math.random() * allPersonList.length);
-              this.showPersonName = allPersonList[random].name;
-              this.index = random;
-            }, 50);
-          },
-          async stop() {
-            this.btnVisible = true;
-            clearInterval(this.timer);
-            /**
-             * 判断当前抽奖次数，
-             * 如果小于10，忽略index已经抽取的人，随机在准备好的幸运10人数组luckyPersonList中抽取一人
-             * 如果大于等于10，通过index获得已经抽取的人
-             * 无论是在那种数组中抽取，抽取后push进中奖人员名单prizePersonList
-             * 然后通过splice移出数组，以保证已经中过奖的人不能再次抽奖
-             */
-            if (this.num < 10) {
-              const random = Math.floor(
-                Math.random() * this.luckyPersonList.length
-              );
-              this.showPersonName = luckyPersonList[random].name;
-              await this.prizePersonList.push(this.luckyPersonList[random]);
-              this.luckyPersonList.splice(random, 1);
-            } else {
-              await this.prizePersonList.push(
-                this.defaultPersonList[this.index]
-              );
-              this.defaultPersonList.splice(this.index, 1);
-            }
-            this.num++;
-          },
-        },
-      });
+        var btn = document.getElementById('btn');
+        var url = document.getElementById('url');
+
+        btn.onclick = function () {
+            fetch(url.value, {}).then((res) => {
+                return res.text()
+            }).then((res) => {
+                // console.log(res)
+                // console.log(res.match(/<meta.*?>/gi));
+                var arr1 = res.match(/<meta.*?>/gi)
+                var arr2 = res.match(/<title.*?title>/gi)
+                var doms1 = arr1.map(item=>{
+                    var dom = document.createElement('div')
+                    dom.innerHTML = item
+                    return dom.getElementsByTagName('meta')[0]
+                })
+                var doms2 = arr2.map(item=>{
+                    var dom = document.createElement('div')
+                    dom.innerHTML = item
+                    return dom.getElementsByTagName('title')[0]
+                })
+                doms1.forEach(item=>{
+                    if (item.name == 'keywords') {
+                        console.log('关键字::', item.content)
+                    }
+                    if (item.name == 'description') {
+                        console.log('描述::', item.content)
+                    }
+                })
+                doms2.forEach(item=>{
+                    console.log('标题::', item.innerText)
+                })
+                
+            }).catch((e)=>{
+                console.log(e)
+            })
+        }
     </script>
-  </body>
+</body>
+
 </html>
