@@ -20,7 +20,11 @@
         btn.onclick = function () {
             fetch(url.value, {
                 method: 'GET',
-                mode: 'no-cors',
+                mode: 'cors',
+                redirect: 'follow',
+                headers: new Headers({
+                    'Content-Type': 'text/plain'
+                })
             }).then((res) => {
                 return res.text()
             }).then((res) => {
